@@ -995,9 +995,10 @@
                 expNum.value = income;
             }
 
-            const maxInst   = income * 0.30;
+            const availableIncome = income - exp;
+            const maxInst   = availableIncome * 0.30;
             const maxBond   = maxLoan(maxInst, rate, years);
-            const disposable = income - exp - maxInst;
+            const disposable = availableIncome - maxInst;
 
             document.getElementById('aff-max-price').textContent  = fmt(maxBond);
             document.getElementById('aff-max-inst').textContent   = fmt(maxInst);
