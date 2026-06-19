@@ -948,6 +948,17 @@
             const rate    = parseFloat(document.getElementById('rep-rate-num').value)    || 10.25;
             const years   = termYears.rep;
 
+            // Update deposit slider max to match purchase price
+            const depositRange = document.getElementById('rep-deposit-range');
+            const depositNum = document.getElementById('rep-deposit-num');
+            depositRange.max = price;
+            
+            // Clamp deposit to not exceed purchase price
+            if (deposit > price) {
+                depositRange.value = price;
+                depositNum.value = price;
+            }
+
             const loan    = Math.max(price - deposit, 0);
             const M       = monthlyInstalment(loan, rate, years);
             const total   = M * years * 12;
@@ -972,6 +983,17 @@
             const exp    = parseFloat(document.getElementById('aff-exp-num').value)    || 0;
             const rate   = parseFloat(document.getElementById('aff-rate-num').value)  || 10.25;
             const years  = termYears.aff;
+
+            // Update expenses slider max to match monthly income
+            const expRange = document.getElementById('aff-exp-range');
+            const expNum = document.getElementById('aff-exp-num');
+            expRange.max = income;
+            
+            // Clamp expenses to not exceed monthly income
+            if (exp > income) {
+                expRange.value = income;
+                expNum.value = income;
+            }
 
             const maxInst   = income * 0.30;
             const maxBond   = maxLoan(maxInst, rate, years);
